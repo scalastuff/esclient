@@ -1,10 +1,30 @@
-esclient
-========
+# Elastic Search Client for Scala
 
-Elastic Search Client for Scala
+## Features
 
-	package esclient
-	
+ - Asynchronous interface
+ - Based on Scala 2.10 Futures
+ - Single dispatch method, useful for command patterns
+ - Type-safe Request / Response pairs: magnet pattern
+ 
+The signature of the dispatch method (simplified):
+  
+   	package  org.scalastuff.esclient
+  	import org.elasticsearch.client.Client
+  	
+ 	implicit class ESClient(client : Client) {
+      def apply[Request, Response](request: Request): Future[Response]
+    }
+
+## Usage
+
+	 libraryDependencies += "org.scalastuff" % "esclient" % "0.20.1"
+	 
+Note that the esclient versioning is aligned with the elastic search version. This is the first esclient release based on 
+Elastic Search version 0.20.
+
+## Sample
+
 	import scala.concurrent.Await
 	import scala.concurrent.Future
 	import scala.concurrent.duration.DurationInt
