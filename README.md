@@ -1,6 +1,6 @@
 # Elastic Search Client for Scala
 
-## Features
+The scala client is a thin wrapper around the java client. It features:
 
  - Asynchronous interface
  - Based on Scala 2.10 Futures
@@ -16,14 +16,14 @@ The signature of the dispatch method (simplified):
       def apply[Request, Response](request: Request): Future[Response]
     }
 
-## Usage
+### Usage
 
 	 libraryDependencies += "org.scalastuff" % "esclient" % "0.20.1"
 	 
 Note that the esclient versioning is aligned with the elastic search version. This is the first esclient release based on 
 Elastic Search version 0.20.
 
-## Sample
+### Sample
 
 	import scala.concurrent.Await
 	import scala.concurrent.Future
