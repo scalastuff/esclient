@@ -3,14 +3,17 @@ import Keys._
 import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseKeys
 import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseCreateSrc
  
+/**
+ * gpg --keyserver hkp://pool.sks-keyservers.net  --no-permission-warning --send-keys 331928A8
+ */
 object ESClientBuild extends Build {
  
-  val es = "org.elasticsearch" % "elasticsearch" % "0.20.0" withSources()
+  val es = "org.elasticsearch" % "elasticsearch" % "0.20.4" withSources()
           
   lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++ publishSettings ++ Seq(
     sbtPlugin := false,
     organization := "org.scalastuff",
-    version := "0.20.1-SNAPSHOT",
+    version := "0.20.3-SNAPSHOT",
     scalaVersion := "2.10.0",
     scalacOptions += "-deprecation",
     scalacOptions += "-unchecked",
@@ -25,15 +28,16 @@ object ESClientBuild extends Build {
     pomIncludeRepository := { _ => false },
     publishMavenStyle := true,
     publishArtifact in Test := false,
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
     pomExtra := <scm>
-                  <connection>scm:git:git@github.com:scalastuff/scalaleafs.git</connection>
-                  <url>https://github.com/scalastuff/scalaleafs</url>
+                  <connection>scm:git:git@github.com:scalastuff/esclient.git</connection>
+                  <url>https://github.com/scalastuff/esclient</url>
                 </scm>
                 <developers>
                   <developer>
                     <id>ruudditerwich</id>
                     <name>Ruud Diterwich</name>
-                    <url>http://ruud.diterwich.com</url>
+                    <url>https://github.com/rditerwich</url>
                   </developer>
                 </developers>,
     publishTo <<= version { (v: String) =>
