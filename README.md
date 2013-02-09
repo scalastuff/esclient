@@ -48,6 +48,6 @@ Elastic Search version 0.20.x.
 	
 ### License
 
-This software is released under the Apache License, Verion 2.0
+This software is released under the Apache License, Version 2.0
 
 http://www.apache.org/licenses/LICENSE-2.0.html
