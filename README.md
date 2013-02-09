@@ -32,7 +32,7 @@ Elastic Search version 0.20.x.
 	import org.elasticsearch.action.index.IndexRequest
 	import org.elasticsearch.action.index.IndexResponse
 	import org.elasticsearch.client.Client
-	import org.elasticsearch.node.NodeBuilder.nodeBuilder;
+	import org.elasticsearch.node.NodeBuilder.nodeBuilder
 	import org.scalastuff.esclient.ESClient
 	
 	object TestES extends App {
