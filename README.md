@@ -4,17 +4,17 @@ The scala client is a thin wrapper around the java client. It features:
 
  - Asynchronous interface
  - Based on Scala 2.10 Futures
- - Single dispatch method, useful for command patterns
+ - Single dispatch method (execute)
  - Type-safe Request / Response pairs using 'magnet' pattern
  
-The signature of the dispatch method (simplified):
+The signature of the execute method (slightly simplified):
   
    	package  org.scalastuff.esclient
   	import org.elasticsearch.client.Client
   	
- 	implicit class ESClient(client : Client) {
-      def execute[Request, Response](request: Request): Future[Response]
-    }
+ 	implicit class ESClient(client : Client) extends AnyVal {
+	  def execute[Request, Response](request: Request): Future[Response]
+	}
 
 ### Usage
 
@@ -32,8 +32,8 @@ Elastic Search version 0.20.x.
 	import org.elasticsearch.action.index.IndexRequest
 	import org.elasticsearch.action.index.IndexResponse
 	import org.elasticsearch.client.Client
+	import org.elasticsearch.node.NodeBuilder.nodeBuilder
 	import org.scalastuff.esclient.ESClient
-	import org.elasticsearch.node.NodeBuilder.nodeBuilder;
 	
 	object TestES extends App {
 	
@@ -45,3 +45,9 @@ Elastic Search version 0.20.x.
 	      
 	  println("Document id: " + Await.result(response, 5 seconds).id)
 	}
+	
+### License
+
+This software is released under the Apache License, Version 2.0
+
+http://www.apache.org/licenses/LICENSE-2.0.html
