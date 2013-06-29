@@ -18,10 +18,10 @@ The signature of the execute method (slightly simplified):
 
 ### Usage
 
-	 libraryDependencies += "org.scalastuff" %% "esclient" % "0.20.3"
+	 libraryDependencies += "org.scalastuff" %% "esclient" % "0.90.2"
 	 
 Note that the esclient versioning is aligned with the elastic search version. This is the second esclient release based on 
-Elastic Search version 0.20.x.
+Elastic Search version 0.90.x.
 
 ### Sample
 
