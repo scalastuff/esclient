@@ -18,10 +18,10 @@ The signature of the execute method (slightly simplified):
 
 ### Usage
 
-	 libraryDependencies += "org.scalastuff" %% "esclient" % "0.20.3"
+	 libraryDependencies += "org.scalastuff" %% "esclient" % "0.90.2"
 	 
 Note that the esclient versioning is aligned with the elastic search version. This is the second esclient release based on 
-Elastic Search version 0.20.x.
+Elastic Search version 0.90.x.
 
 ### Sample
 
@@ -33,7 +33,7 @@ Elastic Search version 0.20.x.
 	import org.elasticsearch.action.index.IndexResponse
 	import org.elasticsearch.client.Client
 	import org.elasticsearch.node.NodeBuilder.nodeBuilder
-	import org.scalastuff.esclient.ESClient
+	import org.scalastuff.esclient._
 	
 	object TestES extends App {
 	
@@ -42,10 +42,17 @@ Elastic Search version 0.20.x.
 	  
 	  val response : Future[IndexResponse] = 
 	    client.execute(new IndexRequest) 
-	      
+	  
 	  println("Document id: " + Await.result(response, 5 seconds).id)
+
+	  // --- or if you like ---
+	  val preparedResponse = client.prepareIndex.execute.future
+    
+	  println("Document id: " + Await.result(preparedResponse, 5 seconds).id)
 	}
 	
+
+
 ### License
 
 This software is released under the Apache License, Version 2.0

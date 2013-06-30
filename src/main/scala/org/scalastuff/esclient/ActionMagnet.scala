@@ -59,94 +59,68 @@ import org.elasticsearch.action.admin.indices.optimize.OptimizeAction
 import org.elasticsearch.action.admin.indices.validate.query.ValidateQueryAction
 
 trait ActionMagnet[Request, Response] {
-  def execute(javaClient: Client, request: Request): Future[Response]
+	def execute(client: Client, request: Request): Future[Response]
 }
 
 object ActionMagnet {
 
-  implicit val bulkAction = magnet(BulkAction.INSTANCE)
-  implicit val countAction = magnet(CountAction.INSTANCE)
-  implicit val deleteAction = magnet(DeleteAction.INSTANCE)
-  implicit val deleteByQueryAction = magnet(DeleteByQueryAction.INSTANCE)
-  implicit val explainAction = magnet(ExplainAction.INSTANCE)
-  implicit val getAction = magnet(GetAction.INSTANCE)
-  implicit val indexAction = magnet(IndexAction.INSTANCE)
-  implicit val moreLikeThisAction = magnet(MoreLikeThisAction.INSTANCE)
-  implicit val multiGetAction = magnet(MultiGetAction.INSTANCE)
-  implicit val multiSearchAction = magnet(MultiSearchAction.INSTANCE)
-  implicit val percolateAction = magnet(PercolateAction.INSTANCE)
-  implicit val searchAction = magnet(SearchAction.INSTANCE)
-  implicit val searchScrollAction = magnet(SearchScrollAction.INSTANCE)
-  implicit val updateAction = magnet(UpdateAction.INSTANCE)
-  
-  implicit val clusterHealthAction = magnet(ClusterHealthAction.INSTANCE)
-  implicit val clusterRerouteAction = magnet(ClusterRerouteAction.INSTANCE)
-  implicit val clusterStateAction = magnet(ClusterStateAction.INSTANCE)
-  implicit val clusterUpdateSettingsAction = magnet(ClusterUpdateSettingsAction.INSTANCE)
-  implicit val nodesHotThreadsAction = magnet(NodesHotThreadsAction.INSTANCE)
-  implicit val nodesInfoAction = magnet(NodesInfoAction.INSTANCE)
-  implicit val nodesRestartAction = magnet(NodesRestartAction.INSTANCE)
-  implicit val nodesShutdownAction = magnet(NodesShutdownAction.INSTANCE)
-  implicit val nodesStatsAction = magnet(NodesStatsAction.INSTANCE)
-  
-  implicit val analyzeAction = magnet(AnalyzeAction.INSTANCE)
-  implicit val clearIndicesCacheAction = magnet(ClearIndicesCacheAction.INSTANCE)
-  implicit val closeIndexAction = magnet(CloseIndexAction.INSTANCE)
-  implicit val createIndexAction = magnet(CreateIndexAction.INSTANCE)
-  implicit val deleteIndexAction = magnet(DeleteIndexAction.INSTANCE)
-  implicit val deleteIndexTemplateAction = magnet(DeleteIndexTemplateAction.INSTANCE)
-  implicit val deleteMappingAction = magnet(DeleteMappingAction.INSTANCE)
-  implicit val deleteWarmerAction = magnet(DeleteWarmerAction.INSTANCE)
-  implicit val flushAction = magnet(FlushAction.INSTANCE)
-  implicit val gatewaySnapshotAction = magnet(GatewaySnapshotAction.INSTANCE)
-  implicit val indicesAliasesAction = magnet(IndicesAliasesAction.INSTANCE)
-  implicit val indicesExistsAction = magnet(IndicesExistsAction.INSTANCE)
-  implicit val indicesSegmentsAction = magnet(IndicesSegmentsAction.INSTANCE)
-  implicit val indicesStatsAction = magnet(IndicesStatsAction.INSTANCE)
-  implicit val indicesStatusAction = magnet(IndicesStatusAction.INSTANCE)
-  implicit val openIndexAction = magnet(OpenIndexAction.INSTANCE)
-  implicit val optimizeAction = magnet(OptimizeAction.INSTANCE)
-  implicit val putIndexTemplateAction = magnet(PutIndexTemplateAction.INSTANCE)
-  implicit val putMappingAction = magnet(PutMappingAction.INSTANCE)
-  implicit val putWarmerAction = magnet(PutWarmerAction.INSTANCE)
-  implicit val refreshAction = magnet(RefreshAction.INSTANCE)
-  implicit val typesExistsAction = magnet(TypesExistsAction.INSTANCE)
-  implicit val updateSettingsAction = magnet(UpdateSettingsAction.INSTANCE)
-  implicit val validateQueryAction = magnet(ValidateQueryAction.INSTANCE)
+	implicit val bulkAction = magnet(_.bulk)
+	implicit val countAction = magnet(_.count)
+	implicit val deleteAction = magnet(_.delete)
+	implicit val deleteByQueryAction = magnet(_.deleteByQuery)
+	implicit val explainAction = magnet(_.explain)
+	implicit val getAction = magnet(_.get)
+	implicit val indexAction = magnet(_.index)
+	implicit val moreLikeThisAction = magnet(_.moreLikeThis)
+	implicit val multiGetAction = magnet(_.multiGet)
+	implicit val multiSearchAction = magnet(_.multiSearch)
+	implicit val percolateAction = magnet(_.percolate)
+	implicit val searchAction = magnet(_.search)
+	implicit val searchScrollAction = magnet(_.searchScroll)
+	implicit val updateAction = magnet(_.update)
 
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: Action[Request, Response, RequestBuilder]) =
-    new ActionMagnet[Request, Response] {
-      def execute(javaClient: Client, request: Request) = {
-        val promise = Promise[Response]()
-        javaClient.execute(action, request, actionListener(promise))
-        promise.future
-      }
-    }
-  
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: ClusterAction[Request, Response, RequestBuilder]) =
-    new ActionMagnet[Request, Response] {
-      def execute(javaClient: Client, request: Request) = {
-        val promise = Promise[Response]()
-        javaClient.admin.cluster.execute(action, request, actionListener(promise))
-        promise.future
-      }
-    }
+	implicit val clusterHealthAction = magnet(_.admin.cluster.health)
+	implicit val clusterRerouteAction = magnet(_.admin.cluster.reroute)
+	implicit val clusterStateAction = magnet(_.admin.cluster.state)
+	implicit val clusterUpdateSettingsAction = magnet(_.admin.cluster.updateSettings)
+	implicit val nodesHotThreadsAction = magnet(_.admin.cluster.nodesHotThreads)
+	implicit val nodesInfoAction = magnet(_.admin.cluster.nodesInfo)
+	implicit val nodesRestartAction = magnet(_.admin.cluster.nodesRestart)
+	implicit val nodesShutdownAction = magnet(_.admin.cluster.nodesShutdown)
+	implicit val nodesStatsAction = magnet(_.admin.cluster.nodesStats)
 
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: IndicesAction[Request, Response, RequestBuilder]) =
-    new ActionMagnet[Request, Response] {
-      def execute(javaClient: Client, request: Request) = {
-        val promise = Promise[Response]()
-        javaClient.admin.indices.execute(action, request, actionListener(promise))
-        promise.future
-      }
-    }
+	implicit val analyzeAction = magnet(_.admin.indices.analyze)
+	implicit val clearIndicesCacheAction = magnet(_.admin.indices.clearCache)
+	implicit val closeIndexAction = magnet(_.admin.indices.close)
+	implicit val createIndexAction = magnet(_.admin.indices.create)
+	implicit val deleteIndexAction = magnet(_.admin.indices.delete)
+	implicit val deleteIndexTemplateAction = magnet(_.admin.indices.deleteTemplate)
+	implicit val deleteMappingAction = magnet(_.admin.indices.deleteMapping)
+	implicit val deleteWarmerAction = magnet(_.admin.indices.deleteWarmer)
+	implicit val flushAction = magnet(_.admin.indices.flush)
+	implicit val gatewaySnapshotAction = magnet(_.admin.indices.gatewaySnapshot)
+	implicit val indicesAliasesAction = magnet(_.admin.indices.aliases)
+	implicit val indicesExistsAction = magnet(_.admin.indices.exists)
+	implicit val indicesSegmentsAction = magnet(_.admin.indices.segments)
+	implicit val indicesStatsAction = magnet(_.admin.indices.stats)
+	implicit val indicesStatusAction = magnet(_.admin.indices.status)
+	implicit val openIndexAction = magnet(_.admin.indices.open)
+	implicit val optimizeAction = magnet(_.admin.indices.optimize)
+	implicit val putIndexTemplateAction = magnet(_.admin.indices.putTemplate)
+	implicit val putMappingAction = magnet(_.admin.indices.putMapping)
+	implicit val putWarmerAction = magnet(_.admin.indices.putWarmer)
+	implicit val refreshAction = magnet(_.admin.indices.refresh)
+	implicit val typesExistsAction = magnet(_.admin.indices.typesExists)
+	implicit val updateSettingsAction = magnet(_.admin.indices.updateSettings)
+	implicit val validateQueryAction = magnet(_.admin.indices.validateQuery)
 
-  private def actionListener[A](promise: Promise[A]) = new ActionListener[A] {
-    def onResponse(response: A) {
-      promise.success(response)
-    }
-    def onFailure(e: Throwable) {
-      promise.failure(e)
-    }
-  }
+	private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse](action: Client => (Request, ActionListener[Response]) => Unit): ActionMagnet[Request, Response] =
+		new ActionMagnet[Request, Response] {
+			def execute(client: Client, request: Request) = {
+				val promise = Promise[Response]()
+				action(client)(request, actionListener(promise))
+				promise.future
+			}
+		}
+
 }
