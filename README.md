@@ -33,7 +33,7 @@ Elastic Search version 0.90.x.
 	import org.elasticsearch.action.index.IndexResponse
 	import org.elasticsearch.client.Client
 	import org.elasticsearch.node.NodeBuilder.nodeBuilder
-	import org.scalastuff.esclient.ESClient
+	import org.scalastuff.esclient._
 	
 	object TestES extends App {
 	
