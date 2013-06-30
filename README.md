@@ -42,10 +42,17 @@ Elastic Search version 0.20.x.
 	  
 	  val response : Future[IndexResponse] = 
 	    client.execute(new IndexRequest) 
-	      
+	  
 	  println("Document id: " + Await.result(response, 5 seconds).id)
+
+	  // --- or if you like ---
+	  val preparedResponse = client.prepareIndex.execute.future
+    
+	  println("Document id: " + Await.result(preparedResponse, 5 seconds).id)
 	}
 	
+
+
 ### License
 
 This software is released under the Apache License, Version 2.0
