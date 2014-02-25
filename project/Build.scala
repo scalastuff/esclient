@@ -8,13 +8,13 @@ import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseCreateSrc
  */
 object ESClientBuild extends Build {
  
-  val es = "org.elasticsearch" % "elasticsearch" % "0.20.5" 
+  val es = "org.elasticsearch" % "elasticsearch" % "1.0.0" 
           
   lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++ publishSettings ++ Seq(
     sbtPlugin := false,
     organization := "org.scalastuff",
-    version := "0.20.4-SNAPSHOT",
-    scalaVersion := "2.10.0",
+    version := "1.0.0-SNAPSHOT",
+    scalaVersion := "2.10.3",
     scalacOptions += "-deprecation",
     scalacOptions += "-unchecked",
     EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource,

@@ -50,7 +50,7 @@ import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction
 import org.elasticsearch.action.admin.indices.status.IndicesStatusAction
 import org.elasticsearch.action.admin.indices.refresh.RefreshAction
 import org.elasticsearch.action.admin.indices.exists.types.TypesExistsAction
-import org.elasticsearch.action.admin.indices.settings.UpdateSettingsAction
+import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsAction
 import org.elasticsearch.action.admin.indices.open.OpenIndexAction
 import org.elasticsearch.action.admin.indices.template.put.PutIndexTemplateAction
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingAction
