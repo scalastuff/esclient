@@ -2,18 +2,20 @@ import sbt._
 import Keys._
 import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseKeys
 import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseCreateSrc
- 
+import sbtrelease.ReleasePlugin._
+
 /**
  * gpg --keyserver hkp://pool.sks-keyservers.net  --no-permission-warning --send-keys 331928A8
  */
 object ESClientBuild extends Build {
  
-  val es = "org.elasticsearch" % "elasticsearch" % "1.0.0" 
+  val es = "org.elasticsearch" % "elasticsearch" % "1.0.2"
           
-  lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++ publishSettings ++ Seq(
+  lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++
+    releaseSettings ++
+    publishSettings ++ Seq(
     sbtPlugin := false,
     organization := "org.scalastuff",
-    version := "1.0.0-SNAPSHOT",
     scalaVersion := "2.10.3",
     scalacOptions += "-deprecation",
     scalacOptions += "-unchecked",
