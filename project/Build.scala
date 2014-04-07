@@ -30,7 +30,8 @@ object ESClientBuild extends Build {
     pomIncludeRepository := { _ => false },
     publishMavenStyle := true,
     publishArtifact in Test := false,
-    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials_busymachines_snapshots"),
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials_busymachines_releases"),
     pomExtra := <scm>
                   <connection>scm:git:git@github.com:scalastuff/esclient.git</connection>
                   <url>https://github.com/scalastuff/esclient</url>
@@ -43,12 +44,12 @@ object ESClientBuild extends Build {
                   </developer>
                 </developers>,
     publishTo <<= version { (v: String) =>
-          val nexus = "https://oss.sonatype.org/"
-          if (v.trim.endsWith("SNAPSHOT")) 
-            Some("snapshots" at nexus + "content/repositories/snapshots") 
-          else
-            Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-        })        
+      val nexus = "http://archiva.busymachines.com"
+      if (v.trim.endsWith("SNAPSHOT"))
+        Some(Resolver.url("snapshots", new URL(nexus + "/repository/snapshots/"))(Resolver.ivyStylePatterns))
+      else
+        Some(Resolver.url("releases", new URL(nexus + "/repository/releases/"))(Resolver.ivyStylePatterns))
+    })
 }
 
 
