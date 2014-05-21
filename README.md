@@ -1,6 +1,6 @@
-# Elastic Search Client for Scala
+# ESClient
 
-The scala client is a thin wrapper around the java client. It features:
+Minimalistic Elastic Search client for scala. It's a thin wrapper around the java client, adding the following features:
 
  - Asynchronous interface
  - Based on Scala 2.10 Futures
@@ -16,7 +16,9 @@ The signature of the execute method (slightly simplified):
 	  def execute[Request, Response](request: Request): Future[Response]
 	}
 
-### Usage
+### Getting started
+
+ESClient is available on maven central.
 
 	 libraryDependencies += "org.scalastuff" %% "esclient" % "1.0.0"
 	 
