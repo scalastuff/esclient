@@ -20,7 +20,7 @@ The signature of the execute method (slightly simplified):
 
 	 libraryDependencies += "org.scalastuff" %% "esclient" % "1.0.0"
 	 
-	 ESClient has been compiled for scala 2.10 and 2.11.
+ESClient has been compiled for scala 2.10 and 2.11.
 
 ### Sample
 
