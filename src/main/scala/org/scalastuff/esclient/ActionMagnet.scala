@@ -1,5 +1,21 @@
 package org.scalastuff.esclient
 
+import org.elasticsearch.action.admin.cluster.snapshots.create.CreateSnapshotAction
+import org.elasticsearch.action.admin.cluster.snapshots.delete.DeleteSnapshotAction
+import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsAction
+import org.elasticsearch.action.admin.cluster.snapshots.restore.RestoreSnapshotAction
+import org.elasticsearch.action.admin.cluster.snapshots.status.SnapshotsStatusAction
+import org.elasticsearch.action.admin.cluster.tasks.PendingClusterTasksAction
+import org.elasticsearch.action.admin.indices.alias.exists.AliasesExistAction
+import org.elasticsearch.action.admin.indices.alias.get.GetAliasesAction
+import org.elasticsearch.action.admin.indices.mapping.get.{GetMappingsAction, GetFieldMappingsAction}
+import org.elasticsearch.action.admin.indices.recovery.RecoveryAction
+import org.elasticsearch.action.admin.indices.settings.get.GetSettingsAction
+import org.elasticsearch.action.admin.indices.template.get.GetIndexTemplatesAction
+import org.elasticsearch.action.admin.indices.warmer.get.GetWarmersAction
+import org.elasticsearch.action.suggest.SuggestAction
+import org.elasticsearch.action.termvector.{TermVectorAction, MultiTermVectorsAction}
+
 import scala.concurrent.Future
 import scala.concurrent.Promise
 import org.elasticsearch.action.Action
@@ -22,14 +38,11 @@ import org.elasticsearch.action.count.CountAction
 import org.elasticsearch.action.delete.DeleteAction
 import org.elasticsearch.action.deletebyquery.DeleteByQueryAction
 import org.elasticsearch.action.explain.ExplainAction
-import org.elasticsearch.action.get.GetAction
-import org.elasticsearch.action.get.MultiGetAction
+import org.elasticsearch.action.get.{GetAction, MultiGetAction}
 import org.elasticsearch.action.index.IndexAction
 import org.elasticsearch.action.mlt.MoreLikeThisAction
-import org.elasticsearch.action.percolate.PercolateAction
-import org.elasticsearch.action.search.MultiSearchAction
-import org.elasticsearch.action.search.SearchAction
-import org.elasticsearch.action.search.SearchScrollAction
+import org.elasticsearch.action.percolate.{MultiPercolateAction, PercolateAction}
+import org.elasticsearch.action.search.{ClearScrollAction, MultiSearchAction, SearchAction, SearchScrollAction}
 import org.elasticsearch.action.update.UpdateAction
 import org.elasticsearch.client.Client
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction
@@ -42,12 +55,10 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexAction
 import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingAction
 import org.elasticsearch.action.admin.indices.flush.FlushAction
 import org.elasticsearch.action.admin.indices.warmer.delete.DeleteWarmerAction
-import org.elasticsearch.action.admin.indices.gateway.snapshot.GatewaySnapshotAction
 import org.elasticsearch.action.admin.indices.alias.IndicesAliasesAction
 import org.elasticsearch.action.admin.indices.stats.IndicesStatsAction
 import org.elasticsearch.action.admin.indices.segments.IndicesSegmentsAction
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction
-import org.elasticsearch.action.admin.indices.status.IndicesStatusAction
 import org.elasticsearch.action.admin.indices.refresh.RefreshAction
 import org.elasticsearch.action.admin.indices.exists.types.TypesExistsAction
 import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsAction
@@ -70,15 +81,20 @@ object ActionMagnet {
   implicit val deleteByQueryAction = magnet(DeleteByQueryAction.INSTANCE)
   implicit val explainAction = magnet(ExplainAction.INSTANCE)
   implicit val getAction = magnet(GetAction.INSTANCE)
+  implicit val multiGetAction = magnet(MultiGetAction.INSTANCE)
   implicit val indexAction = magnet(IndexAction.INSTANCE)
   implicit val moreLikeThisAction = magnet(MoreLikeThisAction.INSTANCE)
-  implicit val multiGetAction = magnet(MultiGetAction.INSTANCE)
   implicit val multiSearchAction = magnet(MultiSearchAction.INSTANCE)
   implicit val percolateAction = magnet(PercolateAction.INSTANCE)
-  implicit val searchAction = magnet(SearchAction.INSTANCE)
+  implicit val multiPercolateAction = magnet(MultiPercolateAction.INSTANCE)
+  implicit val clearScrollAction = magnet(ClearScrollAction.INSTANCE)
   implicit val searchScrollAction = magnet(SearchScrollAction.INSTANCE)
+  implicit val searchAction = magnet(SearchAction.INSTANCE)
   implicit val updateAction = magnet(UpdateAction.INSTANCE)
-  
+  implicit val suggestAction = magnet(SuggestAction.INSTANCE)
+  implicit val termVectorAction = magnet(TermVectorAction.INSTANCE)
+  implicit val multiTermVectorsAction = magnet(MultiTermVectorsAction.INSTANCE)
+
   implicit val clusterHealthAction = magnet(ClusterHealthAction.INSTANCE)
   implicit val clusterRerouteAction = magnet(ClusterRerouteAction.INSTANCE)
   implicit val clusterStateAction = magnet(ClusterStateAction.INSTANCE)
@@ -88,29 +104,41 @@ object ActionMagnet {
   implicit val nodesRestartAction = magnet(NodesRestartAction.INSTANCE)
   implicit val nodesShutdownAction = magnet(NodesShutdownAction.INSTANCE)
   implicit val nodesStatsAction = magnet(NodesStatsAction.INSTANCE)
-  
+  implicit val getSnapshotsAction = magnet(GetSnapshotsAction.INSTANCE)
+  implicit val createSnapshotAction = magnet(CreateSnapshotAction.INSTANCE)
+  implicit val deleteSnapshotAction = magnet(DeleteSnapshotAction.INSTANCE)
+  implicit val restoreSnapshotAction = magnet(RestoreSnapshotAction.INSTANCE)
+  implicit val snapshotsStatusAction = magnet(SnapshotsStatusAction.INSTANCE)
+  implicit val pendingClusterTasksAction = magnet(PendingClusterTasksAction.INSTANCE)
+
+  implicit val aliasesExistsAction = magnet(AliasesExistAction.INSTANCE)
+  implicit val getAliasesAction = magnet(GetAliasesAction.INSTANCE)
   implicit val analyzeAction = magnet(AnalyzeAction.INSTANCE)
   implicit val clearIndicesCacheAction = magnet(ClearIndicesCacheAction.INSTANCE)
   implicit val closeIndexAction = magnet(CloseIndexAction.INSTANCE)
   implicit val createIndexAction = magnet(CreateIndexAction.INSTANCE)
   implicit val deleteIndexAction = magnet(DeleteIndexAction.INSTANCE)
+  implicit val getIndexTemplatesAction = magnet(GetIndexTemplatesAction.INSTANCE)
   implicit val deleteIndexTemplateAction = magnet(DeleteIndexTemplateAction.INSTANCE)
+  implicit val putIndexTemplateAction = magnet(PutIndexTemplateAction.INSTANCE)
+  implicit val getMappingsAction = magnet(GetMappingsAction.INSTANCE)
+  implicit val getFieldMappingsAction = magnet(GetFieldMappingsAction.INSTANCE)
   implicit val deleteMappingAction = magnet(DeleteMappingAction.INSTANCE)
+  implicit val getWarmersAction = magnet(GetWarmersAction.INSTANCE)
   implicit val deleteWarmerAction = magnet(DeleteWarmerAction.INSTANCE)
   implicit val flushAction = magnet(FlushAction.INSTANCE)
-  implicit val gatewaySnapshotAction = magnet(GatewaySnapshotAction.INSTANCE)
+  implicit val recoveryAction = magnet(RecoveryAction.INSTANCE)
   implicit val indicesAliasesAction = magnet(IndicesAliasesAction.INSTANCE)
   implicit val indicesExistsAction = magnet(IndicesExistsAction.INSTANCE)
   implicit val indicesSegmentsAction = magnet(IndicesSegmentsAction.INSTANCE)
   implicit val indicesStatsAction = magnet(IndicesStatsAction.INSTANCE)
-  implicit val indicesStatusAction = magnet(IndicesStatusAction.INSTANCE)
   implicit val openIndexAction = magnet(OpenIndexAction.INSTANCE)
   implicit val optimizeAction = magnet(OptimizeAction.INSTANCE)
-  implicit val putIndexTemplateAction = magnet(PutIndexTemplateAction.INSTANCE)
   implicit val putMappingAction = magnet(PutMappingAction.INSTANCE)
   implicit val putWarmerAction = magnet(PutWarmerAction.INSTANCE)
   implicit val refreshAction = magnet(RefreshAction.INSTANCE)
   implicit val typesExistsAction = magnet(TypesExistsAction.INSTANCE)
+  implicit val getSettingsAction = magnet(GetSettingsAction.INSTANCE)
   implicit val updateSettingsAction = magnet(UpdateSettingsAction.INSTANCE)
   implicit val validateQueryAction = magnet(ValidateQueryAction.INSTANCE)
 

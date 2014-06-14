@@ -1,24 +1,21 @@
 import sbt._
 import Keys._
-import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseKeys
-import com.typesafe.sbteclipse.plugin.EclipsePlugin.EclipseCreateSrc
  
 /**
  * gpg --keyserver hkp://pool.sks-keyservers.net  --no-permission-warning --send-keys 331928A8
  */
 object ESClientBuild extends Build {
  
-  val es = "org.elasticsearch" % "elasticsearch" % "1.0.0" 
+  val es = "org.elasticsearch" % "elasticsearch" % "1.2.1"
           
   lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++ publishSettings ++ Seq(
     sbtPlugin := false,
     organization := "org.scalastuff",
-    version := "1.0.0-SNAPSHOT",
-    scalaVersion := "2.10.3",
+    version := "1.2.1",
+    crossScalaVersions := Seq("2.10.4", "2.11.1"),
+    scalaVersion := "2.11.1",
     scalacOptions += "-deprecation",
     scalacOptions += "-unchecked",
-    EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource,
-    EclipseKeys.withSource := true,
     libraryDependencies += es
     ))
 
