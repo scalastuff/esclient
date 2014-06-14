@@ -4,7 +4,7 @@
     <facet type="scala" name="Scala">
       <configuration>
         <option name="compilerLibraryLevel" value="Project" />
-        <option name="compilerLibraryName" value="SBT:: scala-compiler:2.10.3" />
+        <option name="compilerLibraryName" value="SBT:: scala-compiler-bundle:2.10.4" />
         <option name="deprecationWarnings" value="true" />
         <option name="uncheckedWarnings" value="true" />
       </configuration>
@@ -18,33 +18,33 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/scala" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.10/src_managed/main" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/test/scala" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.10/src_managed/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.10/src_managed/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/scala" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.10/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.10/resource_managed/test" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="SBT: com.spatial4j:spatial4j:0.3" level="project" />
-    <orderEntry type="library" name="SBT: jakarta-regexp:jakarta-regexp:1.4" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-analyzers-common:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-codecs:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-core:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-grouping:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-highlighter:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-join:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-memory:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-misc:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-queries:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-queryparser:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-sandbox:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-spatial:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-suggest:4.6.1" level="project" />
-    <orderEntry type="library" name="SBT: org.elasticsearch:elasticsearch:1.0.0" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.10.3" level="project" />
+    <orderEntry type="library" name="SBT: com.spatial4j:spatial4j:0.4.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-analyzers-common:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-codecs:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-core:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-grouping:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-highlighter:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-join:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-memory:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-misc:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-queries:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-queryparser:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-sandbox:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-spatial:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.lucene:lucene-suggest:4.8.1" level="project" />
+    <orderEntry type="library" name="SBT: org.elasticsearch:elasticsearch:1.2.1" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.10.4" level="project" />
   </component>
 </module>
 
