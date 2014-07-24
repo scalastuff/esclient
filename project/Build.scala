@@ -6,12 +6,12 @@ import Keys._
  */
 object ESClientBuild extends Build {
  
-  val es = "org.elasticsearch" % "elasticsearch" % "1.2.1"
+  val es = "org.elasticsearch" % "elasticsearch" % "1.3.0"
           
   lazy val esclient = Project(id = "esclient", base = file("."), settings = Project.defaultSettings ++ publishSettings ++ Seq(
     sbtPlugin := false,
     organization := "org.scalastuff",
-    version := "1.2.1",
+    version := "1.3.0",
     crossScalaVersions := Seq("2.10.4", "2.11.1"),
     scalaVersion := "2.11.1",
     scalacOptions += "-deprecation",

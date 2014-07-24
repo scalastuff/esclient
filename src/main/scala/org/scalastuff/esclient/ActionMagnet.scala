@@ -44,7 +44,7 @@ import org.elasticsearch.action.mlt.MoreLikeThisAction
 import org.elasticsearch.action.percolate.{MultiPercolateAction, PercolateAction}
 import org.elasticsearch.action.search.{ClearScrollAction, MultiSearchAction, SearchAction, SearchScrollAction}
 import org.elasticsearch.action.update.UpdateAction
-import org.elasticsearch.client.Client
+import org.elasticsearch.client.{IndicesAdminClient, ClusterAdminClient, ElasticsearchClient, Client}
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction
 import org.elasticsearch.action.admin.indices.IndicesAction
 import org.elasticsearch.action.admin.indices.cache.clear.ClearIndicesCacheAction
@@ -142,7 +142,7 @@ object ActionMagnet {
   implicit val updateSettingsAction = magnet(UpdateSettingsAction.INSTANCE)
   implicit val validateQueryAction = magnet(ValidateQueryAction.INSTANCE)
 
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: Action[Request, Response, RequestBuilder]) =
+  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder, Client]](action: Action[Request, Response, RequestBuilder, Client]) =
     new ActionMagnet[Request, Response] {
       def execute(javaClient: Client, request: Request) = {
         val promise = Promise[Response]()
@@ -151,7 +151,7 @@ object ActionMagnet {
       }
     }
   
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: ClusterAction[Request, Response, RequestBuilder]) =
+  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder, ClusterAdminClient]](action: ClusterAction[Request, Response, RequestBuilder]) =
     new ActionMagnet[Request, Response] {
       def execute(javaClient: Client, request: Request) = {
         val promise = Promise[Response]()
@@ -160,7 +160,7 @@ object ActionMagnet {
       }
     }
 
-  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder]](action: IndicesAction[Request, Response, RequestBuilder]) =
+  private def magnet[Request <: ActionRequest[Request], Response <: ActionResponse, RequestBuilder <: ActionRequestBuilder[Request, Response, RequestBuilder, IndicesAdminClient]](action: IndicesAction[Request, Response, RequestBuilder]) =
     new ActionMagnet[Request, Response] {
       def execute(javaClient: Client, request: Request) = {
         val promise = Promise[Response]()
